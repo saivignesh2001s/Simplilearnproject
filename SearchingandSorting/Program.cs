@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿using System.IO;
 
 namespace SearchingandSorting
 {
@@ -7,23 +7,21 @@ namespace SearchingandSorting
         static void Main(string[] args)
         {
             string ps =@"C:\Users\saivignesh\Desktop\class.txt";
-            FileStream ds = new FileStream(ps,FileMode.Open,FileAccess.Read);
-            StreamReader rs = new StreamReader(ds);
+            String[] lines = File.ReadAllLines(ps);
+          
             List<Student> list = new List<Student>();
-            while (!rs.EndOfStream) {
-                string k=rs.ReadLine();
-                char[] c = new char[] {' ','\t'};
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string k = lines[i];
+                char[] c = new char[] { ' ', '\t' };
                 string[] man = k.Split(c, StringSplitOptions.None);
                 Student s = new Student();
                 s.Name = man[0];
                 s.Class = Convert.ToInt32(man[1]);
                 list.Add(s);
             }
-            rs.Close();
-            ds.Close();
-            rs.Dispose();
-            ds.Dispose();
-
+            
+            
             start:
             Console.Write(" 1.SortbyClass\n 2.SortbyName\n 3.SearchbyName\n 4.SearchByClass\n 5.Display\n");
             Console.WriteLine("Enter your Choice");
